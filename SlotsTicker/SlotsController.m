@@ -71,8 +71,15 @@
         integer = integer / 10;
     }
     
+    //adds 0 to array if the length of the value is less the zeros
+    if (length < self.size) {
+        for (int i = length; i < self.size; i++) {
+            [digits addObject:[NSNumber numberWithInt:0]];
+        }
+    }
+        
     //animate slots
-    for (int i = 0; i < length; i++)
+    for (int i = 0; i < self.size; i++)
     {
         SlotLayer *slot = (SlotLayer*) [self.slots objectAtIndex:(self.size-1)-i];
         int newValue = [[digits objectAtIndex:i] intValue];

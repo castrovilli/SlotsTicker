@@ -62,6 +62,7 @@
 		4D198E711593FE8F0002650D = {
 			isa = PBXGroup;
 			children = (
+				4D8CBE151597F232002928F4 /* SlotsTicker */,
 				4D198E861593FE8F0002650D /* SlotsTickerDemo */,
 				4D198E7F1593FE8F0002650D /* Frameworks */,
 				4D198E7D1593FE8F0002650D /* Products */,
@@ -91,7 +92,6 @@
 		4D198E861593FE8F0002650D /* SlotsTickerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				4D8CBE151597F232002928F4 /* SlotsTicker */,
 				4D198E8F1593FE8F0002650D /* AppDelegate.h */,
 				4D198E901593FE8F0002650D /* AppDelegate.m */,
 				4D198E921593FE8F0002650D /* ViewController.h */,
@@ -122,7 +122,7 @@
 				4D8CBE191597F232002928F4 /* SlotsController.m */,
 			);
 			name = SlotsTicker;
-			path = ../../SlotsTicker;
+			path = ../SlotsTicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
