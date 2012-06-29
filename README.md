@@ -49,6 +49,9 @@ slots.value = 123456789;
 //set font size
 slots.fontSize = 40.0f;
 
+//set extra padding between slots (default is 0)
+slots.padding = 2;
+
 //position the slots
 slots.position = CGPointMake(slots.fontSize*1.5, 160);
     
