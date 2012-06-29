@@ -32,6 +32,9 @@
     
     [self.view.layer addSublayer:slots];
 
+    //set font using the font name of choice
+    [slots setFontWithName:@"Arial"];
+
     //set font size
     slots.fontSize = 40.0f;
     
@@ -40,9 +43,9 @@
     
     //set the slots color
     slots.color = [[UIColor whiteColor] CGColor];
-    
-    //set font using the font name of choice
-    [slots setFontWithName:@"Arial"];
+        
+    //set extra padding between numbers 
+    slots.padding = 2;
 }
 
 - (IBAction)animateSlots:(id)sender

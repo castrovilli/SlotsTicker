@@ -18,7 +18,7 @@
 
 @implementation SlotsController
 
-@synthesize slots = _slots, fontSize = _fontSize, value = _value, speed = _speed, color = _color, size = _size;
+@synthesize slots = _slots, fontSize = _fontSize, value = _value, speed = _speed, color = _color, size = _size, padding = _padding;
 
 - (NSMutableArray*) slots
 {
@@ -33,9 +33,16 @@
     _fontSize = fontSize;
     for (SlotLayer *slot in self.slots) {
         slot.fontSize = _fontSize;
-        slot.position = CGPointMake((slot.fontSize * [self.slots indexOfObject:slot] * 0.5f) + slot.fontSize*.5, slot.fontSize*.5);
+        int index = [self.slots indexOfObject:slot];
+        slot.position = CGPointMake((slot.fontSize * index * 0.5f) + (slot.fontSize * 0.5f) + (self.padding * index), slot.fontSize*.5);
     }
     
+}
+
+- (void) setPadding:(int)padding
+{
+    _padding = padding;
+    [self setFontSize:self.fontSize]; //repositions with new padding
 }
 
 - (void) setColor:(CGColorRef)color

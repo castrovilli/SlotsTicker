@@ -30,6 +30,9 @@
 //The amount of SlotLayers initialized (readonly)
 @property (nonatomic, readonly) int size;
 
+//extra padding between CALayers (Default is 0) 
+@property (nonatomic) int padding;
+
 //Set the max amount of SlotLayers to be initialized (Default is 9)
 - (id) initWithSize:(int) size;
 
