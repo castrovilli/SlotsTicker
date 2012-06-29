@@ -107,6 +107,14 @@
     return self;
 }
 
+- (void) setFontWithName:(NSString*) name
+{
+    CGFontRef font = CGFontCreateWithFontName((__bridge CFStringRef)name);
+    for (CATextLayer *textLayer in self.numbers) {
+        textLayer.font = font;
+    }
+}
+
 //Animates the numbersLayer to the targetValue
 //To animate, set the "value" property to an integer between 0 and 9 
 - (void) animateTo:(int)targetValue
@@ -131,4 +139,5 @@
     
     [CATransaction commit];
 }
+
 @end

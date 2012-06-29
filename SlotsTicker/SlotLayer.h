@@ -24,4 +24,7 @@
 //the speed at which the slots animate
 @property (nonatomic) float speed;
 
+//sets the font for all CATextLayers (0 - 9)
+- (void) setFontWithName:(NSString*) name;
+
 @end

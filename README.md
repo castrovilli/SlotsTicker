@@ -42,10 +42,13 @@ slots.value = 123456789;
 
 ### Edit the slots attributes:
 
-```objc
+```objc  
+//set font
+[slots setFontWithName:@"Arial"];
+
 //set font size
 slots.fontSize = 40.0f;
-    
+
 //position the slots
 slots.position = CGPointMake(slots.fontSize*1.5, 160);
     

@@ -136,4 +136,11 @@
     return self;
 }
 
+- (void) setFontWithName:(NSString*) name
+{
+    for (SlotLayer *slot in self.slots) {
+        [slot setFontWithName:name];
+    }
+}
+
 @end

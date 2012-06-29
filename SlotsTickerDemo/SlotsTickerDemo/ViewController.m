@@ -40,6 +40,9 @@
     
     //set the slots color
     slots.color = [[UIColor whiteColor] CGColor];
+    
+    //set font using the font name of choice
+    [slots setFontWithName:@"Arial"];
 }
 
 - (IBAction)animateSlots:(id)sender
