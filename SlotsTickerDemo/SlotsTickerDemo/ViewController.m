@@ -46,6 +46,12 @@
         
     //set extra padding between numbers 
     slots.padding = 2;
+    
+    //Dont show zeros in front of number
+    slots.showZeros = NO;
+    
+    //set specific allignments
+    slots.alignment = SlotAlignmentLeft;
 }
 
 - (IBAction)animateSlots:(id)sender
