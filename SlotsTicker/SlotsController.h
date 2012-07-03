@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 
+typedef enum
+{
+    SlotAlignmentMin = 0,
+    SlotAlignmentLeft,
+    SlotAlignmentRight,
+}SlotAlignment;
+
 @interface SlotsController : CALayer
 
 //Array containing all SlotLayers
@@ -32,6 +39,18 @@
 
 //extra padding between CALayers (Default is 0) 
 @property (nonatomic) int padding;
+
+//the size of the slot controller
+@property (nonatomic,readonly) CGSize contentSize;
+
+//Enable/Disable zeros in front of numbers (Default is YES)
+//YES = 000321018
+//NO = 321018
+@property (nonatomic) BOOL showZeros;
+
+//Default is SlotAlignmentLeft
+//Only used when "showZeros" is set to NO
+@property (nonatomic) SlotAlignment alignment;
 
 //Set the max amount of SlotLayers to be initialized (Default is 9)
 - (id) initWithSize:(int) size;

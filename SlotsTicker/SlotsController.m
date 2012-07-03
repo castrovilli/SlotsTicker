@@ -18,7 +18,7 @@
 
 @implementation SlotsController
 
-@synthesize slots = _slots, fontSize = _fontSize, value = _value, speed = _speed, color = _color, size = _size, padding = _padding;
+@synthesize slots = _slots, fontSize = _fontSize, value = _value, speed = _speed, color = _color, size = _size, padding = _padding, contentSize = _contentSize, showZeros = _showZeros, alignment = _alignment;
 
 - (NSMutableArray*) slots
 {
@@ -36,6 +36,7 @@
         int index = [self.slots indexOfObject:slot];
         slot.position = CGPointMake((slot.fontSize * index * 0.5f) + (slot.fontSize * 0.5f) + (self.padding * index), slot.fontSize*.5);
     }
+    _contentSize = CGSizeMake(self.fontSize * self.size + self.padding, self.fontSize);
     
 }
 
@@ -79,12 +80,43 @@
     }
     
     //adds 0 to array if the length of the value is less the zeros
-    if (length < self.size) {
-        for (int i = length; i < self.size; i++) {
-            [digits addObject:[NSNumber numberWithInt:0]];
+    if (length < self.size)
+    {
+        for (int i = length; i < self.size; i++)
+        {
+            if (self.showZeros)
+                [digits addObject:[NSNumber numberWithInt:0]];
+            else
+                [digits addObject:[NSNumber numberWithInt:-1]]; //will show as invisible
         }
-    }
         
+        //if true - need to reorganize -1 (aka invisibile) slots to the back of array
+        if (self.showZeros == NO && self.alignment == SlotAlignmentLeft) 
+        {
+            NSMutableArray* newDigits = [NSMutableArray arrayWithArray:[[digits reverseObjectEnumerator] allObjects]];
+            for (int i = 0; i < self.size; i++)
+            {
+                int invisibleInt = [[newDigits objectAtIndex:i] intValue];
+                //shifts digits over to the right of array
+                if (invisibleInt == -1)
+                {
+                    for (int j = i+1; j < self.size; j++)
+                    {
+                        NSNumber *num2 = [newDigits objectAtIndex:j];
+                        if ([num2 intValue] != -1) {
+                            [newDigits replaceObjectAtIndex:i withObject:num2];
+                            [newDigits replaceObjectAtIndex:j withObject:[NSNumber numberWithInt:invisibleInt]];
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            digits = [NSMutableArray arrayWithArray:[[newDigits reverseObjectEnumerator] allObjects]];
+        }
+        
+    }
+            
     //animate slots
     for (int i = 0; i < self.size; i++)
     {
@@ -115,6 +147,7 @@
     }
     
     self.speed = 5.0f;
+    self.alignment = SlotAlignmentLeft;
 }
 
 - (id) init
