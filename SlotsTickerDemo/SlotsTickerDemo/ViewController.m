@@ -41,17 +41,17 @@
     //position the slots
     slots.position = CGPointMake(slots.fontSize*1.5, 160);
     
-    //set the slots color
+    //set the slots color (Default is White)
     slots.color = [[UIColor whiteColor] CGColor];
         
-    //set extra padding between numbers 
+    //set extra padding between numbers (Default is 0)
     slots.padding = 2;
     
-    //Dont show zeros in front of number
-    slots.showZeros = NO;
+    //show zeros in front of number (Default is YES)
+    slots.showZeros = YES;
     
-    //set specific allignments
-    slots.alignment = SlotAlignmentLeft;
+    //set specific allignments (Default is SlotAlignmentRight)
+    slots.alignment = SlotAlignmentRight;
 }
 
 - (IBAction)animateSlots:(id)sender

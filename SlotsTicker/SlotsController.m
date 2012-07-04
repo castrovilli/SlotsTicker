@@ -147,7 +147,7 @@
     }
     
     self.speed = 5.0f;
-    self.alignment = SlotAlignmentLeft;
+    self.alignment = SlotAlignmentRight;
 }
 
 - (id) init
