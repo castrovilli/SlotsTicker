@@ -42,19 +42,8 @@
 - (void) setFontSize:(CGFloat)fontSize
 {
     _fontSize = fontSize;
-    for (SlotNumberLayer *slot in self.slots) {
-        slot.fontSize = _fontSize;
-        int index = [self.slots indexOfObject:slot];
-        slot.position = CGPointMake((slot.fontSize * index * 0.5f) + (slot.fontSize * 0.5f) + (self.padding * index), slot.fontSize*.5);
-    }
-    for (SlotCommaLayer *comma in self.commas) {
-        comma.fontSize = _fontSize;
-        int index = [self.commas indexOfObject:comma];
-        comma.position = CGPointMake((comma.fontSize * index * 0.5f) + (comma.fontSize * 0.5f) + (self.padding * index), comma.fontSize*.5);
-        comma.show = self.commasEnabled;
-    }
+    [self repositionDigitsStartingAtIndex:0];
     _contentSize = CGSizeMake(self.fontSize * self.size + self.padding, self.fontSize);
-    
 }
 
 - (void) setPadding:(int)padding
@@ -160,12 +149,14 @@
             int index = sizeFactor - 4;
             SlotCommaLayer *commaToShow = [self.commas objectAtIndex:index];
             commaToShow.show = YES;
+            //[self repositionDigitsStartingAtIndex:index];
             
             //if true = we are going to have to show 2 commas
             if (sizeFactor > 6 && value > pow(10,6)-1) {
                 index = sizeFactor - 7;
                 SlotCommaLayer *commaToShow = [self.commas objectAtIndex:index];
                 commaToShow.show = YES;
+                //[self repositionDigitsStartingAtIndex:index];
             }
         }
     }
@@ -247,6 +238,25 @@
     
     //repositioning
     [self setFontSize:self.fontSize];
+}
+
+- (void) repositionDigitsStartingAtIndex:(int) index
+{
+    int commaPadding = 0;
+    if (index > 0)
+        commaPadding = self.fontSize * .5f;
+    
+    for (int i = index; i < self.size; i++) {
+        SlotNumberLayer *slot = [self.slots objectAtIndex:i];
+        slot.fontSize = _fontSize;
+        float previousX = (i > index) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : commaPadding;
+        slot.position = CGPointMake(previousX + slot.fontSize * .5f + self.padding, slot.fontSize*.5);
+        
+        SlotCommaLayer *comma = [self.commas objectAtIndex:i];
+        comma.fontSize = _fontSize;
+        comma.position = slot.position;
+        comma.show = self.commasEnabled;
+    }
 }
 
 @end
