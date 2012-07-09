@@ -115,6 +115,7 @@
     for (CATextLayer *textLayer in self.numbers) {
         textLayer.font = font;
     }
+    CFRelease(font);
 }
 
 //Animates the numbersLayer to the targetValue
