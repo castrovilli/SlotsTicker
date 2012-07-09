@@ -17,8 +17,10 @@
 		4D198E971593FE8F0002650D /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D198E951593FE8F0002650D /* ViewController.xib */; };
 		4D198EA7159414F20002650D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D198EA5159414EA0002650D /* QuartzCore.framework */; };
 		4D198EB915941E730002650D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D198EB715941E6A0002650D /* CoreText.framework */; };
-		4DC3536315AA91CA0030B4F1 /* SlotLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3536015AA91CA0030B4F1 /* SlotLayer.m */; };
 		4DC3536415AA91CA0030B4F1 /* SlotsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3536215AA91CA0030B4F1 /* SlotsController.m */; };
+		4DC3536C15AA92FA0030B4F1 /* SlotCommaLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3536715AA92FA0030B4F1 /* SlotCommaLayer.m */; };
+		4DC3536D15AA92FA0030B4F1 /* SlotNumberLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3536915AA92FA0030B4F1 /* SlotNumberLayer.m */; };
+		4DC3536E15AA92FA0030B4F1 /* SlotTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3536B15AA92FA0030B4F1 /* SlotTextLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,10 +39,14 @@
 		4D198E961593FE8F0002650D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		4D198EA5159414EA0002650D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4D198EB715941E6A0002650D /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		4DC3535F15AA91CA0030B4F1 /* SlotLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotLayer.h; sourceTree = "<group>"; };
-		4DC3536015AA91CA0030B4F1 /* SlotLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotLayer.m; sourceTree = "<group>"; };
 		4DC3536115AA91CA0030B4F1 /* SlotsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotsController.h; sourceTree = "<group>"; };
 		4DC3536215AA91CA0030B4F1 /* SlotsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotsController.m; sourceTree = "<group>"; };
+		4DC3536615AA92FA0030B4F1 /* SlotCommaLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotCommaLayer.h; sourceTree = "<group>"; };
+		4DC3536715AA92FA0030B4F1 /* SlotCommaLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotCommaLayer.m; sourceTree = "<group>"; };
+		4DC3536815AA92FA0030B4F1 /* SlotNumberLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotNumberLayer.h; sourceTree = "<group>"; };
+		4DC3536915AA92FA0030B4F1 /* SlotNumberLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotNumberLayer.m; sourceTree = "<group>"; };
+		4DC3536A15AA92FA0030B4F1 /* SlotTextLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotTextLayer.h; sourceTree = "<group>"; };
+		4DC3536B15AA92FA0030B4F1 /* SlotTextLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotTextLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,13 +122,25 @@
 		4DC3535E15AA91CA0030B4F1 /* SlotsTicker */ = {
 			isa = PBXGroup;
 			children = (
-				4DC3535F15AA91CA0030B4F1 /* SlotLayer.h */,
-				4DC3536015AA91CA0030B4F1 /* SlotLayer.m */,
+				4DC3536515AA92FA0030B4F1 /* SlotLayers */,
 				4DC3536115AA91CA0030B4F1 /* SlotsController.h */,
 				4DC3536215AA91CA0030B4F1 /* SlotsController.m */,
 			);
 			name = SlotsTicker;
 			path = ../../SlotsTicker;
+			sourceTree = "<group>";
+		};
+		4DC3536515AA92FA0030B4F1 /* SlotLayers */ = {
+			isa = PBXGroup;
+			children = (
+				4DC3536A15AA92FA0030B4F1 /* SlotTextLayer.h */,
+				4DC3536B15AA92FA0030B4F1 /* SlotTextLayer.m */,
+				4DC3536815AA92FA0030B4F1 /* SlotNumberLayer.h */,
+				4DC3536915AA92FA0030B4F1 /* SlotNumberLayer.m */,
+				4DC3536615AA92FA0030B4F1 /* SlotCommaLayer.h */,
+				4DC3536715AA92FA0030B4F1 /* SlotCommaLayer.m */,
+			);
+			path = SlotLayers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,8 +209,10 @@
 				4D198E8D1593FE8F0002650D /* main.m in Sources */,
 				4D198E911593FE8F0002650D /* AppDelegate.m in Sources */,
 				4D198E941593FE8F0002650D /* ViewController.m in Sources */,
-				4DC3536315AA91CA0030B4F1 /* SlotLayer.m in Sources */,
 				4DC3536415AA91CA0030B4F1 /* SlotsController.m in Sources */,
+				4DC3536C15AA92FA0030B4F1 /* SlotCommaLayer.m in Sources */,
+				4DC3536D15AA92FA0030B4F1 /* SlotNumberLayer.m in Sources */,
+				4DC3536E15AA92FA0030B4F1 /* SlotTextLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

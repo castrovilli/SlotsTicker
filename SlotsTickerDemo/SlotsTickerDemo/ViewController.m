@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "SlotLayer.h"
 #import "AppDelegate.h"
 #import "SlotsController.h"
 
@@ -48,7 +47,10 @@
     slots.padding = 2;
     
     //show zeros in front of number (Default is YES)
-    slots.showZeros = YES;
+    slots.showZeros = NO;
+    
+    //enable commas to be displayed with your digits
+    slots.commasEnabled = YES;
     
     //set specific allignments (Default is SlotAlignmentRight)
     slots.alignment = SlotAlignmentRight;
