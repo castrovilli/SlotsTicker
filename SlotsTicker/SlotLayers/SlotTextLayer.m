@@ -10,7 +10,9 @@
 
 @implementation SlotTextLayer
 
-@synthesize textLayers = _textLayers, fontSize = _fontSize, textLayersContainer = _textLayersContainer, speed = _speed, color = _color;
+NSString* const kCAAlignmentCenterRight = @"kCAAlignmentCenterRight";
+
+@synthesize textLayers = _textLayers, fontSize = _fontSize, textLayersContainer = _textLayersContainer, speed = _speed, color = _color,alignmentMode = _alignmentMode;
 
 - (CALayer*) textLayersContainer
 {
@@ -48,6 +50,29 @@
 - (void) setSpeed:(float)speed
 {
     _speed = speed / (speed * speed);
+}
+
+- (void) setAlignmentMode:(NSString *)alignmentMode
+{
+    
+    if ([alignmentMode isEqualToString:kCAAlignmentCenterRight] && ![_alignmentMode isEqualToString:kCAAlignmentCenterRight])
+    {
+        for (CATextLayer *textLayer in self.textLayers) {
+            textLayer.alignmentMode = kCAAlignmentRight;
+            textLayer.position = CGPointMake(textLayer.position.x-self.fontSize*.15f, textLayer.position.y);
+        }
+    }
+    else {
+        
+        //if it was in the custom alignment mode we should set it back to its normal position
+        int newPosX = ([_alignmentMode isEqualToString:kCAAlignmentCenterRight]) ? self.fontSize*.15f : 0;
+            
+        for (CATextLayer *textLayer in self.textLayers) {
+            textLayer.alignmentMode = alignmentMode;
+            textLayer.position = CGPointMake(textLayer.position.x+newPosX, textLayer.position.y);
+        }
+    }
+    _alignmentMode = alignmentMode;
 }
 
 - (void) setColor:(CGColorRef)color

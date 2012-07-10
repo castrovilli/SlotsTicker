@@ -11,6 +11,8 @@
 
 @interface SlotTextLayer : CALayer
 
+extern NSString * const kCAAlignmentCenterRight; 
+
 //the font size for all CATextLayers (0 - 9)
 @property (nonatomic) CGFloat fontSize;
 
@@ -25,6 +27,9 @@
 
 //Array containing all CATextLayers (0 - 9)
 @property (nonatomic) NSMutableArray *textLayers;
+
+//the alignmentMode for all CATextLayers (0 - 9)
+@property (nonatomic) NSString* alignmentMode;
 
 
 //sets the font for all CATextLayers (0 - 9)

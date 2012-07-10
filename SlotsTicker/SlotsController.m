@@ -149,18 +149,18 @@
             int index = sizeFactor - 4;
             SlotCommaLayer *commaToShow = [self.commas objectAtIndex:index];
             commaToShow.show = YES;
-            //[self repositionDigitsStartingAtIndex:index];
+            [self setSlotNumberAlignmentAccordingToSize:sizeFactor];
             
             //if true = we are going to have to show 2 commas
             if (sizeFactor > 6 && value > pow(10,6)-1) {
                 index = sizeFactor - 7;
                 SlotCommaLayer *commaToShow = [self.commas objectAtIndex:index];
-                commaToShow.show = YES;
-                //[self repositionDigitsStartingAtIndex:index];
+                commaToShow.show = YES; 
+                [self setSlotNumberAlignmentAccordingToSize:sizeFactor];
             }
         }
     }
-            
+                
     //animate slots
     for (int i = 0; i < self.size; i++)
     {
@@ -179,7 +179,6 @@
         comma.speed = _speed;
 }
 
-
 - (void) setDefaults
 {
     digits = [[NSMutableArray alloc] init];
@@ -190,8 +189,7 @@
         [self.slots addObject:slot];
         [self addSublayer:slot];
         _fontSize = slot.fontSize;
-    }
-    for (int i = 0; i < self.size; i++) {
+        
         SlotCommaLayer *comma = [[SlotCommaLayer alloc] init];
         comma.position = CGPointMake((self.fontSize * i * .5) + self.fontSize*.5, self.fontSize*.5);
         comma.show = self.commasEnabled;
@@ -240,23 +238,81 @@
     [self setFontSize:self.fontSize];
 }
 
+//==================TODO: METHOD NEEDS REFACTORING==================
+- (void) setSlotNumberAlignmentAccordingToSize:(int) size
+{
+    //resets all commas back to right alignment
+    for (SlotCommaLayer *comma in self.commas) {
+        comma.alignmentMode = kCAAlignmentRight;
+    }
+    
+    if (size > 6) 
+    {        
+        //sets right values to align right
+        for (int i = 0; i < size; i++) {
+            SlotNumberLayer *slot = [self.slots objectAtIndex:i];
+            
+            if (i < size-6)
+                slot.alignmentMode = kCAAlignmentLeft;
+            else if (i < size-3)
+                slot.alignmentMode = kCAAlignmentCenter;
+            else
+                slot.alignmentMode = kCAAlignmentRight;
+        }
+        //check to see if two commas are shown
+        //finds the the first comma
+        //then sets the first comma to alingmentCenter
+        int shownCommas = 0;
+        for (SlotCommaLayer *comma in self.commas) {
+            if (comma.show == YES)
+                shownCommas++;
+        }
+        if (shownCommas >= 2)
+        {
+            for (SlotCommaLayer *comma in self.commas) {
+                if (comma.show == YES) {
+                    comma.alignmentMode = kCAAlignmentCenterRight;
+                    break;
+                }
+            }
+        }
+    }
+    else if (size > 3) 
+    {
+        int index = size - 3;
+        
+        //sets right values to align right
+        for (int i = index; i < size; i++) {
+            SlotNumberLayer *slot = [self.slots objectAtIndex:i];
+            slot.alignmentMode = kCAAlignmentRight;
+        }
+        //resets left value to defaults
+        for (int i = index-1; i >= 0; i--) {
+            SlotNumberLayer *slot = [self.slots objectAtIndex:i];
+            slot.alignmentMode = kCAAlignmentCenter;
+        }
+
+    }
+}
+
 - (void) repositionDigitsStartingAtIndex:(int) index
 {
-    int commaPadding = 0;
-    if (index > 0)
-        commaPadding = self.fontSize * .5f;
+    [CATransaction begin];
+    [CATransaction setValue:kCFBooleanTrue forKey:kCATransactionDisableActions];
     
     for (int i = index; i < self.size; i++) {
         SlotNumberLayer *slot = [self.slots objectAtIndex:i];
         slot.fontSize = _fontSize;
-        float previousX = (i > index) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : commaPadding;
-        slot.position = CGPointMake(previousX + slot.fontSize * .5f + self.padding, slot.fontSize*.5);
-        
+        float previousX = (i > 0) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : 0;
+        int commaPadding =  (i == index && index != 0) ? self.fontSize*.75f : 0;
+        slot.position = CGPointMake(commaPadding + previousX + slot.fontSize * .5f + self.padding, slot.fontSize*.5);
+
         SlotCommaLayer *comma = [self.commas objectAtIndex:i];
         comma.fontSize = _fontSize;
         comma.position = slot.position;
-        comma.show = self.commasEnabled;
+
     }
+    [CATransaction commit];
 }
 
 @end

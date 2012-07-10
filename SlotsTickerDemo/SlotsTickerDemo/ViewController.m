@@ -27,7 +27,7 @@
     slots = [[SlotsController alloc] init];
     
     //can also init the controller by setting its max size (default is 9)
-    //slots = [[SlotsController alloc] initWithSize:2];
+    //slots = [[SlotsController alloc] initWithSize:5];
     
     [self.view.layer addSublayer:slots];
 
@@ -53,7 +53,7 @@
     slots.commasEnabled = YES;
     
     //set specific allignments (Default is SlotAlignmentRight)
-    slots.alignment = SlotAlignmentRight;
+    slots.alignment = SlotAlignmentLeft;
 }
 
 - (IBAction)animateSlots:(id)sender
