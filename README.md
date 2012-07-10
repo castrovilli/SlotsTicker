@@ -57,5 +57,11 @@ slots.position = CGPointMake(slots.fontSize*1.5, 160);
     
 //set the slots color
 slots.color = [[UIColor redColor] CGColor];
+
+//show zeros in front of number (Default is YES)
+slots.showZeros = YES;
+    
+//set specific allignments (Default is SlotAlignmentRight)
+slots.alignment = SlotAlignmentRight;
 ```
 

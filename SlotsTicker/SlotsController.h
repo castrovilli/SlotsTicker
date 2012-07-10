@@ -48,6 +48,9 @@ typedef enum
 //NO = 321018
 @property (nonatomic) BOOL showZeros;
 
+//Enable/Disable commas (Default is NO)
+@property (nonatomic) BOOL commasEnabled;
+
 //Default is SlotAlignmentLeft
 //Only used when "showZeros" is set to NO
 @property (nonatomic) SlotAlignment alignment;

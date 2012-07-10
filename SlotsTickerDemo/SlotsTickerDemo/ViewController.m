@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "SlotLayer.h"
 #import "AppDelegate.h"
 #import "SlotsController.h"
 
@@ -28,7 +27,7 @@
     slots = [[SlotsController alloc] init];
     
     //can also init the controller by setting its max size (default is 9)
-    //slots = [[SlotsController alloc] initWithSize:2];
+    //slots = [[SlotsController alloc] initWithSize:5];
     
     [self.view.layer addSublayer:slots];
 
@@ -41,16 +40,19 @@
     //position the slots
     slots.position = CGPointMake(slots.fontSize*1.5, 160);
     
-    //set the slots color
+    //set the slots color (Default is White)
     slots.color = [[UIColor whiteColor] CGColor];
         
-    //set extra padding between numbers 
+    //set extra padding between numbers (Default is 0)
     slots.padding = 2;
     
-    //Dont show zeros in front of number
+    //show zeros in front of number (Default is YES)
     slots.showZeros = NO;
     
-    //set specific allignments
+    //enable commas to be displayed with your digits
+    slots.commasEnabled = YES;
+    
+    //set specific allignments (Default is SlotAlignmentRight)
     slots.alignment = SlotAlignmentLeft;
 }
 
