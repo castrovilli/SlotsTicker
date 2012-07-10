@@ -296,10 +296,7 @@
 }
 
 - (void) repositionDigitsStartingAtIndex:(int) index
-{
-    [CATransaction begin];
-    [CATransaction setValue:kCFBooleanTrue forKey:kCATransactionDisableActions];
-    
+{    
     for (int i = index; i < self.size; i++) {
         SlotNumberLayer *slot = [self.slots objectAtIndex:i];
         slot.fontSize = _fontSize;
@@ -312,7 +309,6 @@
         comma.position = slot.position;
 
     }
-    [CATransaction commit];
 }
 
 @end
