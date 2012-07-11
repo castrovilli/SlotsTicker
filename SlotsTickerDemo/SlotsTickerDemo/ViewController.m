@@ -53,7 +53,7 @@
     slots.commasEnabled = YES;
     
     //set specific allignments (Default is SlotAlignmentRight)
-    slots.alignment = SlotAlignmentLeft;
+    slots.alignment = SlotAlignmentRight;
 }
 
 - (IBAction)animateSlots:(id)sender

@@ -20,9 +20,7 @@
 - (void) setValue:(int)value
 {
     //Only animate if a valid value
-    if (value == -1)
-        [self animateTo:10];
-    else if (value <= 9 && value >= 0)
+    if (value <= 9 && value >= -1)
         [self animateTo:value];
 }
 
