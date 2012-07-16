@@ -18,6 +18,11 @@ typedef enum
 
 @interface SlotsController : CALayer
 
+//const
+extern int const kSlotsSizeMax; 
+extern int const kSlotsSizeMin; 
+
+
 //Array containing all SlotLayers
 @property (nonatomic) NSMutableArray *slots;
 
@@ -41,22 +46,21 @@ typedef enum
 @property (nonatomic) int padding;
 
 //the size of the slot controller
-@property (nonatomic,readonly) CGSize contentSize;
+//this is the size that the slots will be restricted to if autoresize is enabled 
+@property (nonatomic) CGSize contentSize;
 
 //Enable/Disable zeros in front of numbers (Default is YES)
 //YES = 000321018
 //NO = 321018
-@property (nonatomic, getter = isShowingZeros) BOOL showZeros;
+@property (nonatomic) BOOL showZeros;
 
 //Enable/Disable commas (Default is NO)
-@property (nonatomic, getter = isCommasEnabled) BOOL commasEnabled;
+@property (nonatomic) BOOL commasEnabled;
 
-//Enable/Disable autoresize font (Default is NO)
-@property (nonatomic, getter = isAutoresizeEnabled) BOOL autoresize;
+//Enable/Disable autoresizing to bounds (Default is NO)
+@property (nonatomic) BOOL autoresize;
 
-//Set minimumFontSize for autoresizing
-//If changed autoresizing is automatically enabled
-//Default is self.fontSize
+//The minimum font size for autoresizing 
 @property (nonatomic) int minimumFontSize;
 
 //Default is SlotAlignmentLeft

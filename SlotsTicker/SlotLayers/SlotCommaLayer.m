@@ -38,7 +38,7 @@
         textLayer.position = CGPointMake(self.fontSize, self.fontSize);
         
         [self.textLayersContainer addSublayer:textLayer];
-        [self.textLayers addObject:textLayer]; //bad practice
+        [self.textLayers addObject:textLayer];
         
         self.masksToBounds = NO;
     }

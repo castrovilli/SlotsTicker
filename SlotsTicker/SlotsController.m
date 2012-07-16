@@ -13,6 +13,7 @@
 @interface SlotsController ()
 {
     NSMutableArray *digits;
+    int originalSize;
 }
 
 @property (nonatomic) NSMutableArray *commas;
@@ -22,6 +23,10 @@
 @implementation SlotsController
 
 @synthesize slots = _slots, fontSize = _fontSize, value = _value, speed = _speed, color = _color, size = _size, padding = _padding, contentSize = _contentSize, showZeros = _showZeros, alignment = _alignment, commas = _commas, commasEnabled = _commasEnabled, autoresize = _autoresize, minimumFontSize = _minimumFontSize;
+
+//Cont
+int const kSlotsSizeMax = 9;
+int const kSlotsSizeMin = 1;
 
 - (NSMutableArray*) slots
 {
@@ -43,13 +48,18 @@
 {
     _fontSize = fontSize;
     [self repositionDigits];
-    _contentSize = CGSizeMake(self.fontSize * self.size + self.padding, self.fontSize);
+}
+
+- (void) setContentSize:(CGSize)contentSize
+{
+    _contentSize = contentSize;
+    [self repositionDigits];
 }
 
 - (void) setPadding:(int)padding
 {
     _padding = padding;
-    [self repositionDigits]; //repositions with new padding
+    [self repositionDigits];
 }
 
 - (void) setColor:(CGColorRef)color
@@ -68,6 +78,19 @@
     //reconfigure commas' visibility
     if (commasEnabled)
         [self setValue:self.value];
+}
+
+- (void) setAutoresize:(BOOL)autoresize
+{
+    if (autoresize == YES) {
+        _size = kSlotsSizeMax;
+        _minimumFontSize = self.fontSize;
+    }
+    else
+        _size = originalSize;
+    
+    _autoresize = autoresize;
+    [self repositionDigits];
 }
 
 - (void) setValue:(int)value
@@ -179,6 +202,19 @@
         comma.speed = _speed;
 }
 
+- (void) setMinimumFontSize:(int)minimumFontSize
+{
+    _minimumFontSize = minimumFontSize;
+
+    if (_minimumFontSize < 0)
+        _minimumFontSize = 1;
+    if (_minimumFontSize > self.fontSize)
+        _minimumFontSize = self.fontSize;
+    if (_minimumFontSize < self.fontSize-50.0f)
+        _minimumFontSize = self.fontSize-50.0f;
+    [self repositionDigits];
+}
+
 - (void) setDefaults
 {
     digits = [[NSMutableArray alloc] init];
@@ -199,13 +235,14 @@
     
     self.speed = 5.0f;
     self.alignment = SlotAlignmentRight;
+    originalSize = _size;
 }
 
 - (id) init
 {
     if (self = [super init])
     {
-        _size = 9;
+        _size = kSlotsSizeMax;
         [self setDefaults];
     }
     return self;
@@ -215,10 +252,10 @@
 {
     if (self = [super init])
     {
-        if (size > 9)
-            _size = 9;
-        else if (size < 1)
-            _size = 1;
+        if (size > kSlotsSizeMax)
+            _size = kSlotsSizeMax;
+        else if (size < kSlotsSizeMin)
+            _size = kSlotsSizeMin;
         else
             _size = size;
         
@@ -234,7 +271,6 @@
     for (SlotCommaLayer *comma in self.commas)
         [comma setFontWithName:name];
     
-    //repositioning
     [self repositionDigits];
 }
 
@@ -297,14 +333,36 @@
 
 - (void) repositionDigits
 {
+    if (self.autoresize) {
+        if ((_fontSize + self.padding)*self.size > self.contentSize.width) 
+        {
+            int i = 1;
+            int newFontSize = _fontSize;
+            while (newFontSize > self.minimumFontSize)
+            {
+                int contentWidth = self.contentSize.width;
+                int newSizeX = (newFontSize) * self.size + self.padding;
+                if (newSizeX > contentWidth)
+                    newFontSize = _fontSize - i;
+                else
+                    break;
+                i++;
+            }
+            _fontSize = newFontSize;
+        }
+    }
+    else {
+        _contentSize = CGSizeMake(self.fontSize * self.size + self.padding,self.fontSize);
+    }
+
     for (int i = 0; i < self.size; i++) {
         SlotNumberLayer *slot = [self.slots objectAtIndex:i];
         slot.fontSize = _fontSize;
         float previousX = (i > 0) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : 0;
-        slot.position = CGPointMake(previousX + slot.fontSize * .5f + self.padding, slot.fontSize*.5);
-
         SlotCommaLayer *comma = [self.commas objectAtIndex:i];
         comma.fontSize = _fontSize;
+        
+        slot.position = CGPointMake(previousX + _fontSize * .5f + self.padding, _fontSize*.5);
         comma.position = slot.position;
 
     }
