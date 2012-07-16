@@ -47,6 +47,10 @@ int const kSlotsSizeMin = 1;
 - (void) setFontSize:(CGFloat)fontSize
 {
     _fontSize = fontSize;
+    
+    if (!self.autoresize)
+        _contentSize = CGSizeMake(_fontSize * self.size + self.padding, _fontSize);
+    
     [self repositionDigits];
 }
 
@@ -362,7 +366,7 @@ int const kSlotsSizeMin = 1;
         SlotCommaLayer *comma = [self.commas objectAtIndex:i];
         comma.fontSize = _fontSize;
         
-        slot.position = CGPointMake(previousX + _fontSize * .5f + self.padding, _fontSize*.5);
+        slot.position = CGPointMake(previousX + _fontSize * .5f + self.padding, self.contentSize.height);
         comma.position = slot.position;
 
     }

@@ -40,9 +40,9 @@
     //RECOMENDED: Wait till next update to use the autoresize feature
     //This feature has some bugs and needs to be fixed/refactored
     //Next update shouldn't be that far away
-//    slots.autoresize = YES;
-//    slots.contentSize = CGSizeMake(slots.contentSize.width*.7, slots.contentSize.height);
-//    slots.minimumFontSize = 20;
+    slots.autoresize = YES;
+    slots.contentSize = CGSizeMake(slots.contentSize.width*.7, slots.contentSize.height);
+    slots.minimumFontSize = 20;
     
     //position the slots
     slots.position = CGPointMake(slots.fontSize*1.5, 160);
