@@ -46,10 +46,18 @@ typedef enum
 //Enable/Disable zeros in front of numbers (Default is YES)
 //YES = 000321018
 //NO = 321018
-@property (nonatomic) BOOL showZeros;
+@property (nonatomic, getter = isShowingZeros) BOOL showZeros;
 
 //Enable/Disable commas (Default is NO)
-@property (nonatomic) BOOL commasEnabled;
+@property (nonatomic, getter = isCommasEnabled) BOOL commasEnabled;
+
+//Enable/Disable autoresize font (Default is NO)
+@property (nonatomic, getter = isAutoresizeEnabled) BOOL autoresize;
+
+//Set minimumFontSize for autoresizing
+//If changed autoresizing is automatically enabled
+//Default is self.fontSize
+@property (nonatomic) int minimumFontSize;
 
 //Default is SlotAlignmentLeft
 //Only used when "showZeros" is set to NO

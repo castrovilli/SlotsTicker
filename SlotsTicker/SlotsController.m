@@ -21,7 +21,7 @@
 
 @implementation SlotsController
 
-@synthesize slots = _slots, fontSize = _fontSize, value = _value, speed = _speed, color = _color, size = _size, padding = _padding, contentSize = _contentSize, showZeros = _showZeros, alignment = _alignment, commas = _commas, commasEnabled = _commasEnabled;
+@synthesize slots = _slots, fontSize = _fontSize, value = _value, speed = _speed, color = _color, size = _size, padding = _padding, contentSize = _contentSize, showZeros = _showZeros, alignment = _alignment, commas = _commas, commasEnabled = _commasEnabled, autoresize = _autoresize, minimumFontSize = _minimumFontSize;
 
 - (NSMutableArray*) slots
 {
@@ -42,14 +42,14 @@
 - (void) setFontSize:(CGFloat)fontSize
 {
     _fontSize = fontSize;
-    [self repositionDigitsStartingAtIndex:0];
+    [self repositionDigits];
     _contentSize = CGSizeMake(self.fontSize * self.size + self.padding, self.fontSize);
 }
 
 - (void) setPadding:(int)padding
 {
     _padding = padding;
-    [self setFontSize:self.fontSize]; //repositions with new padding
+    [self repositionDigits]; //repositions with new padding
 }
 
 - (void) setColor:(CGColorRef)color
@@ -235,7 +235,7 @@
         [comma setFontWithName:name];
     
     //repositioning
-    [self setFontSize:self.fontSize];
+    [self repositionDigits];
 }
 
 //==================TODO: METHOD NEEDS REFACTORING==================
@@ -295,14 +295,13 @@
     }
 }
 
-- (void) repositionDigitsStartingAtIndex:(int) index
-{    
-    for (int i = index; i < self.size; i++) {
+- (void) repositionDigits
+{
+    for (int i = 0; i < self.size; i++) {
         SlotNumberLayer *slot = [self.slots objectAtIndex:i];
         slot.fontSize = _fontSize;
         float previousX = (i > 0) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : 0;
-        int commaPadding =  (i == index && index != 0) ? self.fontSize*.75f : 0;
-        slot.position = CGPointMake(commaPadding + previousX + slot.fontSize * .5f + self.padding, slot.fontSize*.5);
+        slot.position = CGPointMake(previousX + slot.fontSize * .5f + self.padding, slot.fontSize*.5);
 
         SlotCommaLayer *comma = [self.commas objectAtIndex:i];
         comma.fontSize = _fontSize;
