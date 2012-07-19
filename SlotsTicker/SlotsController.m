@@ -396,7 +396,7 @@ int const kSlotsSizeMin = 1;
             SlotCommaLayer *comma = [self.commas objectAtIndex:i];
             comma.fontSize = fontSize;
             
-            slot.position = CGPointMake((previousX + self.padding) - (fontSize * .5f), self.contentSize.height*.5);
+            slot.position = CGPointMake(previousX - fontSize * .5f - self.padding, self.contentSize.height*.5);
             comma.position = slot.position;
         }
     }
