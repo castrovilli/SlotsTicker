@@ -59,8 +59,8 @@
     //enable commas to be displayed with your digits
     slots.commasEnabled = YES;
                     
-    //set specific allignments (Default is SlotAlignmentRight)
-    slots.alignment = SlotAlignmentRight;
+    //set specific allignments (Default is SlotAlignmentLeft)
+    slots.alignment = SlotAlignmentLeft;
 }
 
 - (IBAction)animateSlots:(id)sender

@@ -242,7 +242,7 @@ int const kSlotsSizeMin = 1;
     }
     
     self.speed = 5.0f;
-    self.alignment = SlotAlignmentRight;
+    self.alignment = SlotAlignmentLeft;
     originalSize = _size;
 }
 
@@ -374,15 +374,31 @@ int const kSlotsSizeMin = 1;
         _contentSize = CGSizeMake(self.fontSize * self.size + self.padding,self.fontSize);
     }
     
-    for (int i = 0; i < self.size; i++) {
-        SlotNumberLayer *slot = [self.slots objectAtIndex:i];
-        slot.fontSize = fontSize;
-        float previousX = (i > 0) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : 0;
-        SlotCommaLayer *comma = [self.commas objectAtIndex:i];
-        comma.fontSize = fontSize;
-        
-        slot.position = CGPointMake(previousX + fontSize * .5f + self.padding, self.contentSize.height*.5);
-        comma.position = slot.position;
+    //shitty style - quick implementation
+    //refactor this later
+    if (self.alignment == SlotAlignmentLeft) { 
+        for (int i = 0; i < self.size; i++) {
+            SlotNumberLayer *slot = [self.slots objectAtIndex:i];
+            slot.fontSize = fontSize;
+            float previousX = (i > 0) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : 0;
+            SlotCommaLayer *comma = [self.commas objectAtIndex:i];
+            comma.fontSize = fontSize;
+            
+            slot.position = CGPointMake(previousX + fontSize * .5f + self.padding, self.contentSize.height*.5);
+            comma.position = slot.position;
+        }
+    }
+    else {
+        for (int i = self.size-1; i >=0 ; i--) {
+            SlotNumberLayer *slot = [self.slots objectAtIndex:i];
+            slot.fontSize = fontSize;
+            float previousX = (i < self.size-1) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i+1]).position.x : self.contentSize.width;
+            SlotCommaLayer *comma = [self.commas objectAtIndex:i];
+            comma.fontSize = fontSize;
+            
+            slot.position = CGPointMake((previousX + self.padding) - (fontSize * .5f), self.contentSize.height*.5);
+            comma.position = slot.position;
+        }
     }
     
 }
