@@ -16,5 +16,4 @@
 //SET THIS to animate the slot ticker
 @property (nonatomic) BOOL show;
 
-
 @end

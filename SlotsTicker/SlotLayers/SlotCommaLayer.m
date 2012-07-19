@@ -8,20 +8,45 @@
 
 #import "SlotCommaLayer.h"
 
+
 @interface SlotCommaLayer ()
 {
     CATextLayer *textLayer;
     CGPoint lastVisiblePos;
 }
+//Returns the y value of the comma container
+@property (nonatomic,readonly) int showValue;
 @end
 
 @implementation SlotCommaLayer
 
-@synthesize show = _show;
+@synthesize show = _show, fontSize =  _fontSize, showValue = _showValue;
 
 - (void) setShow:(BOOL)show
 {
     [self hideAnimation:show];
+}
+
+- (CGPoint) positionWithAlignmentOffset
+{
+    if ([self.alignmentMode isEqualToString:kCAAlignmentCenterRight])
+        return CGPointMake(-_fontSize*.15f, self.showValue);
+    return CGPointMake(0, self.showValue);
+}
+
+- (void) setFontSize:(CGFloat)fontSize
+{
+    _fontSize = fontSize;
+    
+    textLayer.fontSize = _fontSize;
+    textLayer.frame = CGRectMake(textLayer.frame.origin.x,textLayer.frame.origin.y, _fontSize, _fontSize);
+    textLayer.position = CGPointMake(_fontSize, _fontSize * [self.textLayers indexOfObject:textLayer] + _fontSize);
+    
+    CGRect frame = self.textLayersContainer.frame;
+    frame.size = CGSizeMake(_fontSize, _fontSize);
+    self.textLayersContainer.frame = frame;    
+    self.textLayersContainer.position = [self positionWithAlignmentOffset];
+    self.frame = CGRectMake(self.frame.origin.x,self.frame.origin.y, _fontSize, _fontSize);
 }
 
 - (id) init
@@ -45,7 +70,13 @@
     return self;
 }
 
-
+- (int) showValue
+{
+    if (self.show)
+        return 0;
+    else
+        return -1000;
+}
 
 //Animates the textLayersContainer to the targetValue
 //To animate, set the "value" property to an integer between 0 and 9 
@@ -56,17 +87,13 @@
     [CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithFloat:durration] forKey:kCATransactionAnimationDuration];
     
-    CGPoint newPos = self.textLayersContainer.position;
-    
-    if (show)
-        newPos.y = 0;
-    else
-        newPos.y = -1000;
-        
-    self.textLayersContainer.position = newPos;
-    
     _show = show;
+
+    CGPoint newPos = self.textLayersContainer.position;
+    newPos.y = self.showValue;
+    self.textLayersContainer.position = newPos;
 
     [CATransaction commit];
 }
+
 @end

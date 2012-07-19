@@ -195,6 +195,8 @@ int const kSlotsSizeMin = 1;
         int newValue = [[digits objectAtIndex:i] intValue];
         slot.value = newValue;
     }
+    
+    [self repositionDigitsLookingForResize:YES];
 }
 
 - (void) setSpeed:(float)speed
@@ -278,7 +280,7 @@ int const kSlotsSizeMin = 1;
     [self repositionDigits];
 }
 
-//==================TODO: METHOD NEEDS REFACTORING==================
+//==================TODO: METHOD NEEDS REFACTORING?==================
 - (void) setSlotNumberAlignmentAccordingToSize:(int) size
 {
     //resets all commas back to right alignment
@@ -335,40 +337,59 @@ int const kSlotsSizeMin = 1;
     }
 }
 
+- (BOOL) needsResizeWithFontSize:(float) fontSize
+{
+    return ((fontSize + self.padding)*self.numOfVisibleIntegers > self.contentSize.width);
+}
+
+- (int) numOfVisibleIntegers
+{
+    int count = 0;
+    for (NSNumber *number in digits) {
+        if ([number intValue] != -1)
+            count++;
+    }
+    return count;
+}
+
+//always update fontsizes etc
 - (void) repositionDigits
 {
+    [self repositionDigitsLookingForResize:NO];
+}
+
+//only refresh font size if have to (yes = must, no = depends)
+- (void) repositionDigitsLookingForResize:(BOOL) isLookingForResize
+{
+    int fontSize = _fontSize;
     if (self.autoresize) {
-        if ((_fontSize + self.padding)*self.size > self.contentSize.width) 
-        {
-            int i = 1;
-            int newFontSize = _fontSize;
+        if ([self needsResizeWithFontSize:fontSize]) {
+            int newFontSize = fontSize;
             while (newFontSize > self.minimumFontSize)
             {
-                int contentWidth = self.contentSize.width;
-                int newSizeX = (newFontSize) * self.size + self.padding;
-                if (newSizeX > contentWidth)
-                    newFontSize = _fontSize - i;
+                if ([self needsResizeWithFontSize:newFontSize])
+                    newFontSize--;
                 else
                     break;
-                i++;
             }
-            _fontSize = newFontSize;
+            fontSize = newFontSize;
         }
     }
     else {
         _contentSize = CGSizeMake(self.fontSize * self.size + self.padding,self.fontSize);
     }
-
-    for (int i = 0; i < self.size; i++) {
-        SlotNumberLayer *slot = [self.slots objectAtIndex:i];
-        slot.fontSize = _fontSize;
-        float previousX = (i > 0) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : 0;
-        SlotCommaLayer *comma = [self.commas objectAtIndex:i];
-        comma.fontSize = _fontSize;
-        
-        slot.position = CGPointMake(previousX + _fontSize * .5f + self.padding, self.contentSize.height);
-        comma.position = slot.position;
-
+    
+    if ((isLookingForResize && fontSize < _fontSize) || (!isLookingForResize)) {
+        for (int i = 0; i < self.size; i++) {
+            SlotNumberLayer *slot = [self.slots objectAtIndex:i];
+            slot.fontSize = fontSize;
+            float previousX = (i > 0) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : 0;
+            SlotCommaLayer *comma = [self.commas objectAtIndex:i];
+            comma.fontSize = fontSize;
+            
+            slot.position = CGPointMake(previousX + fontSize * .5f + self.padding, self.contentSize.height);
+            comma.position = slot.position;
+        }
     }
 }
 

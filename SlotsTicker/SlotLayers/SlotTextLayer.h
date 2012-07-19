@@ -31,7 +31,6 @@ extern NSString * const kCAAlignmentCenterRight;
 //the alignmentMode for all CATextLayers (0 - 9)
 @property (nonatomic) NSString* alignmentMode;
 
-
 //sets the font for all CATextLayers (0 - 9)
 - (void) setFontWithName:(NSString*) name;
 

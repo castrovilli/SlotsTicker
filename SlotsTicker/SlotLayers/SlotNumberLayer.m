@@ -14,7 +14,7 @@
 
 @implementation SlotNumberLayer
 
-@synthesize value = _value;
+@synthesize value = _value, fontSize = _fontSize;
 
 //animates when setting a new value 
 - (void) setValue:(int)value
@@ -22,6 +22,22 @@
     //Only animate if a valid value
     if (value <= 9 && value >= -1)
         [self animateTo:value];
+}
+
+//reset positioning according to new font size 
+- (void) setFontSize:(CGFloat)fontSize
+{
+    _fontSize = fontSize;
+    for (CATextLayer *textLayer in self.textLayers) {
+        textLayer.fontSize = _fontSize;
+        textLayer.frame = CGRectMake(textLayer.frame.origin.x,textLayer.frame.origin.y, _fontSize, _fontSize);
+        textLayer.position = CGPointMake(_fontSize, _fontSize * [self.textLayers indexOfObject:textLayer] + _fontSize);
+    }
+    CGRect frame = self.textLayersContainer.frame;
+    frame.size = CGSizeMake(_fontSize, _fontSize);
+    self.textLayersContainer.frame = frame;    
+    self.textLayersContainer.position = CGPointMake(0, -_fontSize * _value);
+    self.frame = CGRectMake(self.frame.origin.x,self.frame.origin.y, _fontSize, _fontSize);
 }
 
 - (id) init

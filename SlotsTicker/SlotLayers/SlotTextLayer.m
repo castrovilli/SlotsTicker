@@ -8,11 +8,15 @@
 
 #import "SlotTextLayer.h"
 
+@interface SlotTextLayer ()
+@property (nonatomic,readonly) CGPoint alignmentCenterRightPos;
+@end
+
 @implementation SlotTextLayer
 
 NSString* const kCAAlignmentCenterRight = @"kCAAlignmentCenterRight";
 
-@synthesize textLayers = _textLayers, fontSize = _fontSize, textLayersContainer = _textLayersContainer, speed = _speed, color = _color,alignmentMode = _alignmentMode;
+@synthesize textLayers = _textLayers, fontSize = _fontSize, textLayersContainer = _textLayersContainer, speed = _speed, color = _color,alignmentMode = _alignmentMode,alignmentCenterRightPos = _align;
 
 - (CALayer*) textLayersContainer
 {
