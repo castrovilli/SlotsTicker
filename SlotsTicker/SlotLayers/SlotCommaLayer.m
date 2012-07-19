@@ -44,8 +44,13 @@
     
     CGRect frame = self.textLayersContainer.frame;
     frame.size = CGSizeMake(_fontSize, _fontSize);
-    self.textLayersContainer.frame = frame;    
+    
+    [CATransaction begin];
+    [CATransaction setValue:0 forKey:kCATransactionAnimationDuration];
+    self.textLayersContainer.frame = frame; 
     self.textLayersContainer.position = [self positionWithAlignmentOffset];
+    [CATransaction commit];
+    
     self.frame = CGRectMake(self.frame.origin.x,self.frame.origin.y, _fontSize, _fontSize);
 }
 
