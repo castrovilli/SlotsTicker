@@ -161,8 +161,10 @@ int const kSlotsSizeMin = 1;
     }
     
     //hide all commas
-    for (SlotCommaLayer *comma in self.commas)
-        comma.show = NO;
+    for (int i = 0 ; i < self.size; i++) {
+        ((SlotCommaLayer*)[self.commas objectAtIndex:i]).show = NO;
+        ((SlotNumberLayer*)[self.slots objectAtIndex:i]).alignmentMode = kCAAlignmentCenter;
+    }
     
     if (self.commasEnabled) {
         
