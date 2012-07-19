@@ -196,7 +196,7 @@ int const kSlotsSizeMin = 1;
         slot.value = newValue;
     }
     
-    [self repositionDigitsLookingForResize:YES];
+    [self repositionDigits];
 }
 
 - (void) setSpeed:(float)speed
@@ -352,14 +352,7 @@ int const kSlotsSizeMin = 1;
     return count;
 }
 
-//always update fontsizes etc
 - (void) repositionDigits
-{
-    [self repositionDigitsLookingForResize:NO];
-}
-
-//only refresh font size if have to (yes = must, no = depends)
-- (void) repositionDigitsLookingForResize:(BOOL) isLookingForResize
 {
     int fontSize = _fontSize;
     if (self.autoresize) {
@@ -379,18 +372,17 @@ int const kSlotsSizeMin = 1;
         _contentSize = CGSizeMake(self.fontSize * self.size + self.padding,self.fontSize);
     }
     
-    if ((isLookingForResize && fontSize < _fontSize) || (!isLookingForResize)) {
-        for (int i = 0; i < self.size; i++) {
-            SlotNumberLayer *slot = [self.slots objectAtIndex:i];
-            slot.fontSize = fontSize;
-            float previousX = (i > 0) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : 0;
-            SlotCommaLayer *comma = [self.commas objectAtIndex:i];
-            comma.fontSize = fontSize;
-            
-            slot.position = CGPointMake(previousX + fontSize * .5f + self.padding, self.contentSize.height*.5);
-            comma.position = slot.position;
-        }
+    for (int i = 0; i < self.size; i++) {
+        SlotNumberLayer *slot = [self.slots objectAtIndex:i];
+        slot.fontSize = fontSize;
+        float previousX = (i > 0) ? ((SlotNumberLayer*)[self.slots objectAtIndex:i-1]).position.x : 0;
+        SlotCommaLayer *comma = [self.commas objectAtIndex:i];
+        comma.fontSize = fontSize;
+        
+        slot.position = CGPointMake(previousX + fontSize * .5f + self.padding, self.contentSize.height*.5);
+        comma.position = slot.position;
     }
+    
 }
 
 @end
