@@ -199,6 +199,8 @@ int const kSlotsSizeMin = 1;
     }
     
     [self repositionDigits];
+    
+    _value = value;
 }
 
 - (void) setSpeed:(float)speed
