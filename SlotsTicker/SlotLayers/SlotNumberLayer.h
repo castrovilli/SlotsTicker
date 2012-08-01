@@ -16,4 +16,6 @@
 //SET THIS to animate the slot ticker
 @property (nonatomic) int value;
 
+- (void) repositionTextLayerAtCurrentValue;
+
 @end

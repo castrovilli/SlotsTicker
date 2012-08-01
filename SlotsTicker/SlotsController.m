@@ -405,4 +405,11 @@ int const kSlotsSizeMin = 1;
     
 }
 
+- (void) repositionTextLayerAtCurrentValue
+{
+    for (SlotNumberLayer *numLayer in self.slots) {
+        [numLayer repositionTextLayerAtCurrentValue];
+    }
+}
+
 @end

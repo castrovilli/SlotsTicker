@@ -40,24 +40,32 @@
     self.frame = CGRectMake(self.frame.origin.x,self.frame.origin.y, _fontSize, _fontSize);
 }
 
+- (void) addTextLayer:(NSString*)text
+{
+    CATextLayer *textLayer = [[CATextLayer alloc] init];
+    textLayer.string = text;
+    textLayer.wrapped = YES;
+    textLayer.fontSize = self.fontSize;
+    textLayer.contentsScale = [[UIScreen mainScreen] scale];
+    textLayer.alignmentMode = kCAAlignmentCenter;
+    textLayer.frame = CGRectMake(0,0, self.fontSize, self.fontSize);
+    
+    [self.textLayersContainer addSublayer:textLayer];
+    [self.textLayers addObject:textLayer];
+}
+
 - (id) init
 {
     if (self = [super init])
-    {        
+    {
         for (int i = 0; i <= 9; i++)
-        {
-            CATextLayer *textLayer = [[CATextLayer alloc] init];
-            textLayer.string = [NSString stringWithFormat:@"%i",i];
-            textLayer.wrapped = YES;
-            textLayer.fontSize = self.fontSize;
-            textLayer.contentsScale = [[UIScreen mainScreen] scale];
-            textLayer.alignmentMode = kCAAlignmentCenter;
-            textLayer.frame = CGRectMake(0,0, self.fontSize, self.fontSize);
-            textLayer.position = CGPointMake(self.fontSize, self.fontSize * i + self.fontSize);
-            
-            [self.textLayersContainer addSublayer:textLayer];
-            [self.textLayers addObject:textLayer];
-        }
+            [self addTextLayer:[NSString stringWithFormat:@"%i",i]];
+        
+        [self addTextLayer:@" "];
+        
+        self.fontSize = 20.0f;
+        
+        [self repositionTextLayerAtCurrentValue];
     }
     return self;
 }
@@ -70,19 +78,36 @@
     
     [CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithFloat:durration] forKey:kCATransactionAnimationDuration];
+    [CATransaction setCompletionBlock:^{
+        [self repositionTextLayerAtCurrentValue];
+    }];
     
     CGPoint newPos = self.textLayersContainer.position;
     int distanceY = self.fontSize * abs(targetValue - self.value);
     
-    //animate downward
-    if (targetValue < self.value) 
-        newPos.y += distanceY;
-    //animate upward
-    else if (targetValue > self.value) 
-        newPos.y -= distanceY; 
+//    //animate downward
+//    if (targetValue < self.value) 
+//        newPos.y += distanceY;
+//    //animate upward
+//    else if (targetValue > self.value) 
+        newPos.y -= distanceY;
     
     self.textLayersContainer.position = newPos;
     _value = targetValue;
+    
+    [CATransaction commit];
+}
+
+
+- (void) repositionTextLayerAtCurrentValue
+{
+    [CATransaction begin];
+    [CATransaction setValue:[NSNumber numberWithFloat:0] forKey:kCATransactionAnimationDuration];
+
+    for (int i = self.value-1; i >= 0;i--) {
+        CATextLayer *textLayer = [self.textLayers objectAtIndex:i];
+        textLayer.position = CGPointMake(_fontSize, _fontSize * self.textLayers.count + _fontSize * ([self.textLayers indexOfObject:textLayer] + 1));
+    }
     
     [CATransaction commit];
 }

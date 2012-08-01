@@ -73,4 +73,6 @@ extern int const kSlotsSizeMin;
 //sets the font for all SlotLayers
 - (void) setFontWithName:(NSString*) name;
 
+- (void) repositionTextLayerAtCurrentValue;
+
 @end

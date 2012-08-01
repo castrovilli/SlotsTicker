@@ -119,17 +119,9 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		4D7318D115B865E600FB6A71 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
 		4DC3535E15AA91CA0030B4F1 /* SlotsTicker */ = {
 			isa = PBXGroup;
 			children = (
-				4D7318D115B865E600FB6A71 /* Categories */,
 				4DC3536515AA92FA0030B4F1 /* SlotLayers */,
 				4DC3536115AA91CA0030B4F1 /* SlotsController.h */,
 				4DC3536215AA91CA0030B4F1 /* SlotsController.m */,

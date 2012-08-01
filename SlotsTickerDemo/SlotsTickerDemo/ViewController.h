@@ -11,5 +11,5 @@
 @interface ViewController : UIViewController
 
 - (IBAction)animateSlots:(id)sender;
-
+- (IBAction)reposition:(id)sender;
 @end
