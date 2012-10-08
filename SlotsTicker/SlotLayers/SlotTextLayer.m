@@ -95,8 +95,8 @@ NSString* const kCAAlignmentCenterRight = @"kCAAlignmentCenterRight";
         _fontSize = 20.0f;
         
         self.frame = CGRectMake(0, 0, self.fontSize, self.fontSize);
-//        self.masksToBounds = YES;
-                 
+        self.masksToBounds = YES;
+        
         [self addSublayer:self.textLayersContainer];
     }
     return self;
