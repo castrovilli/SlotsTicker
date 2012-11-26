@@ -17,6 +17,7 @@
 		4D198E971593FE8F0002650D /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D198E951593FE8F0002650D /* ViewController.xib */; };
 		4D198EA7159414F20002650D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D198EA5159414EA0002650D /* QuartzCore.framework */; };
 		4D198EB915941E730002650D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D198EB715941E6A0002650D /* CoreText.framework */; };
+		4D9EE86516630B17003799EA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D9EE86416630B17003799EA /* Default-568h@2x.png */; };
 		4DC3536415AA91CA0030B4F1 /* SlotsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3536215AA91CA0030B4F1 /* SlotsController.m */; };
 		4DC3536C15AA92FA0030B4F1 /* SlotCommaLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3536715AA92FA0030B4F1 /* SlotCommaLayer.m */; };
 		4DC3536D15AA92FA0030B4F1 /* SlotNumberLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3536915AA92FA0030B4F1 /* SlotNumberLayer.m */; };
@@ -39,6 +40,7 @@
 		4D198E961593FE8F0002650D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		4D198EA5159414EA0002650D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4D198EB715941E6A0002650D /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		4D9EE86416630B17003799EA /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4DC3536115AA91CA0030B4F1 /* SlotsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotsController.h; sourceTree = "<group>"; };
 		4DC3536215AA91CA0030B4F1 /* SlotsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotsController.m; sourceTree = "<group>"; };
 		4DC3536615AA92FA0030B4F1 /* SlotCommaLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotCommaLayer.h; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		4D198E711593FE8F0002650D = {
 			isa = PBXGroup;
 			children = (
+				4D9EE86416630B17003799EA /* Default-568h@2x.png */,
 				4D198E861593FE8F0002650D /* SlotsTickerDemo */,
 				4D198E7F1593FE8F0002650D /* Frameworks */,
 				4D198E7D1593FE8F0002650D /* Products */,
@@ -196,6 +199,7 @@
 			files = (
 				4D198E8B1593FE8F0002650D /* InfoPlist.strings in Resources */,
 				4D198E971593FE8F0002650D /* ViewController.xib in Resources */,
+				4D9EE86516630B17003799EA /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

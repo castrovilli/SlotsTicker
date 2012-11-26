@@ -45,7 +45,7 @@
 //    slots.minimumFontSize = 20;
     
     //position the slots
-    slots.position = CGPointMake(-slots.fontSize*1.5, 160);
+    slots.position = CGPointMake(slots.fontSize*1.5, 160);
     
     //set the slots color (Default is White)
     slots.color = [[UIColor whiteColor] CGColor];

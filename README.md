@@ -13,7 +13,7 @@ A Slot Machine like ticker using CoreAnimation.
 - Add QuartzCore.framework to your project
 - Import "SlotsController.h"
 
-## Example Useage
+## Example Usage
 
 ### Create SlotsController
 
