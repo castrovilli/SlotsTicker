@@ -1,3 +1,6 @@
+## Update
+This project is no longer maintned (last real update Jul 2012).
+
 # SlotsTicker
 
 A Slot Machine like ticker using CoreAnimation.
